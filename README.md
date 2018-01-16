@@ -13,7 +13,7 @@ $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 把`.vimrc`拉下來，跑個安裝，
 
 ```
-$ https://github.com/tsaihp/vimrc.git
+$ wget https://raw.githubusercontent.com/tsaihp/vimrc/master/.vimrc ~/
 $ vim +PluginInstall +qall
 ```
 

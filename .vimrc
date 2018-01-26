@@ -59,6 +59,7 @@ Plugin 'vim-scripts/taglist.vim'
 Plugin 'chazy/cscope_maps'
 Plugin 'fholgado/minibufexpl.vim'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'aceofall/gtags.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -96,6 +97,13 @@ let g:solarized_termcolors=256
 
 " NERDTree
 nnoremap <silent> <F5> :NERDTreeToggle<CR>
+
+" gnu global
+set cscopetag
+set cscopeprg=gtags-cscope
+let GtagsCscope_Auto_Load = 1
+let GtagsCscope_Auto_Map = 1
+let GtagsCscope_Quiet = 1
 
 if has("autocmd")
     autocmd BufRead *.txt set tw=78

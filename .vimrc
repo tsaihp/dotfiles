@@ -23,6 +23,7 @@ set shiftwidth=4
 set expandtab
 set autoindent
 set cindent
+set cursorline
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -76,13 +77,6 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-" Tlist
-let Tlist_Exit_OnlyWindow=1
-" let Tlist_Use_Right_Window=1
-let Tlist_WinWidth=40
-let Tlist_Show_One_File=1
-map <f9> :Tlist<CR>
-
 " miniBufExpl
 let g:miniBufExplMapWindowNavVim=1
 let g:miniBufExplMapWindowNavArrows=1
@@ -95,20 +89,39 @@ set t_Co=256
 let g:solarized_termcolors=256
 "colorscheme solarized
 
-" NERDTree
-nnoremap <silent> <F5> :NERDTreeToggle<CR>
-
-" gnu global
-set cscopetag
-set cscopeprg=gtags-cscope
-let GtagsCscope_Auto_Load = 1
-let GtagsCscope_Auto_Map = 1
-let GtagsCscope_Quiet = 1
-
 if has("autocmd")
     autocmd BufRead *.txt set tw=78
     autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g'\"" |
     \ endif
+    autocmd FileType make setlocal noexpandtab
+    autocmd FileType sh setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType vim setlocal ts=4 sts=4 sw=4 expandtab
+
+    " NERDTree
+    autocmd VimEnter * 
+    \ if exists(":NERDTree") | 
+    \   exe "nnoremap <silent> <F5> :NERDTreeToggle<CR>" |
+    \ endif
+
+    autocmd VimEnter * 
+    \ if exists(":Tlist") | 
+    \   let Tlist_Exit_OnlyWindow=1 |
+    \   let Tlist_WinWidth=40 | 
+    \   let Tlist_Show_One_File=1 |
+    \   map <f9> :Tlist<CR> | 
+    \ endif
+
+    autocmd BufWritePost * if filereadable("./GTAGS") | silent exe "!global -u" | endif
+endif
+
+" gnu global
+if filereadable("./GTAGS")
+    set cscopetag
+    set cscopeprg=gtags-cscope
+    let GtagsCscope_Auto_Load = 1
+    let GtagsCscope_Auto_Map = 1
+    let GtagsCscope_Quiet = 1
+    silent exe "!global -u"
 endif

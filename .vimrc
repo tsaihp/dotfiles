@@ -1,19 +1,12 @@
 version 6.0
 if &cp | set nocp | endif
+map Q gq
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <C-U> u
-map! <D-v> *
-map Q gq
 vmap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
 vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())
-vmap <BS> "-d
-vmap <D-x> "*d
-vmap <D-c> "*y
-vmap <D-v> "-d"*P
-nmap <D-v> "*P
 inoremap  u
 let &cpo=s:cpo_save
 unlet s:cpo_save
@@ -25,11 +18,13 @@ set history=200
 set incsearch
 set langnoremap
 set nolangremap
-set mouse=a
+set nomodeline
 set nrformats=bin,hex
 set ruler
+set runtimepath=~/.vim,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim80,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/after
 set scrolloff=5
 set showcmd
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 set ttimeout
 set ttimeoutlen=100
 set wildmenu
@@ -37,16 +32,12 @@ set wildmenu
 
 " customize
 set bg=dark
-set encoding=utf-8
-set hlsearch
-set nu
-syntax on
 set tabstop=4
 set shiftwidth=4
-set expandtab
-set autoindent
-set cindent
 set cursorline
+set hlsearch
+syntax on
+set nu
 
 " vim-plug
 " Specify a directory for plugins
@@ -95,6 +86,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+"Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clang-completer'}
+
 " Unmanaged plugin (manually installed and updated)
 "Plug '~/my-prototype-plugin'
 
@@ -110,9 +103,9 @@ let g:gutentags_modules = []
 if executable('ctags')
     let g:gutentags_modules += ['ctags']
 endif
-if executable('gtags-cscope') && executable('gtags')
-    let g:gutentags_modules += ['gtags_cscope']
-endif
+"if executable('gtags-cscope') && executable('gtags')
+"    let g:gutentags_modules += ['gtags_cscope']
+"endif
 
 let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
@@ -128,16 +121,22 @@ endif
 
 " LeaderF
 let g:Lf_GtagsAutoGenerate = 1
-let g:Lf_RootMarkers = ['.git', '.hg', '.svn', 'root', 'project']
+let g:Lf_RootMarkers = ['.git', '.hg', '.svn', '.root', '.project']
 
+noremap <C-\><C-T> :tags<CR>
 noremap <C-\><C-F> :Leaderf file<CR>
 noremap <C-\><C-L> :Leaderf function<CR>
 noremap <C-\><C-B> :Leaderf buffer<CR>
-noremap <C-\><C-P> :Leaderf tag<CR>
 
 if executable('gtags')
     noremap <C-\>c :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+    noremap <C-\><C-R> :<C-U><C-R>=printf("Leaderf gtags -r %s", expand("<cword>"))<CR><CR>
+    noremap <C-\><C-D> :<C-U><C-R>=printf("Leaderf gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
     noremap <C-\><C-P> :<C-U><C-R>=printf("Leaderf gtags %s", "")<CR><CR>
+endif
+
+if executable('rg')
+    noremap <C-\>s :<C-U><C-R>=printf("Leaderf rg %s -t c -t cpp -t make -t asm", expand("<cword>"))<CR><CR>
 endif
 
 " NERDTree
@@ -149,13 +148,10 @@ let g:airline_theme='base16_monokai'
 
 " last open
 if has("autocmd")
-    autocmd FileType make setlocal noexpandtab
-    autocmd FileType sh setlocal ts=4 sts=4 sw=4 expandtab
-    autocmd FileType vim setlocal ts=4 sts=4 sw=4 expandtab	
-
     autocmd BufRead *.txt set tw=78
     autocmd BufReadPost *
     \ if line("'\"") > 0 && line ("'\"") <= line("$") |
     \   exe "normal g'\"" |
     \ endif
 endif
+

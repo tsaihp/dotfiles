@@ -13,7 +13,7 @@ unlet s:cpo_save
 set backspace=indent,eol,start
 set display=truncate
 set fileencodings=ucs-bom,utf-8,default,latin1
-set helplang=en
+set helplang=C.
 set history=200
 set incsearch
 set langnoremap
@@ -36,7 +36,6 @@ set tabstop=4
 set shiftwidth=4
 set cursorline
 set hlsearch
-syntax on
 set nu
 
 " vim-plug
@@ -79,12 +78,16 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 " minibufexpl
-Plug 'fholgado/minibufexpl.vim'
+"Plug 'fholgado/minibufexpl.vim'
 
 Plug 'tpope/vim-fugitive'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+Plug 'vim-scripts/DoxygenToolkit.vim' 
+
+Plug 'editorconfig/editorconfig-vim'
 
 "Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clang-completer'}
 
@@ -103,9 +106,9 @@ let g:gutentags_modules = []
 if executable('ctags')
     let g:gutentags_modules += ['ctags']
 endif
-"if executable('gtags-cscope') && executable('gtags')
-"    let g:gutentags_modules += ['gtags_cscope']
-"endif
+if executable('gtags-cscope') && executable('gtags')
+    let g:gutentags_modules += ['gtags_cscope']
+endif
 
 let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
@@ -136,7 +139,7 @@ if executable('gtags')
 endif
 
 if executable('rg')
-    noremap <C-\>s :<C-U><C-R>=printf("Leaderf rg %s -t c -t cpp -t make -t asm", expand("<cword>"))<CR><CR>
+    noremap <C-\>s :<C-U><C-R>=printf("Leaderf rg %s", expand("<cword>"))<CR><CR>
 endif
 
 " NERDTree
@@ -154,4 +157,3 @@ if has("autocmd")
     \   exe "normal g'\"" |
     \ endif
 endif
-

@@ -46,3 +46,13 @@ brew "wireshark"
 brew "yarn"
 # App to build and share containerized applications and microservices
 cask "docker"
+
+cask "microsoft-teams"
+cask "microsoft-edge"
+cask "microsoft-remote-desktop"
+cask "vlc"
+cask "mplayer-osx-extended"
+cask "docker"
+cask "dropbox"
+cask "visual-studio-code"
+cask "welly"

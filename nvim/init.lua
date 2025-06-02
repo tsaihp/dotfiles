@@ -22,7 +22,8 @@ require("lazy").setup({
   { "tpope/vim-fugitive" },
   { "nvim-lualine/lualine.nvim" },
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-  { "nvim-tree/nvim-tree.lua", dependencies = { "nvim-tree/nvim-web-devicons" } }
+  { "nvim-tree/nvim-tree.lua", dependencies = { "nvim-tree/nvim-web-devicons" } },
+  { "gpanders/editorconfig.nvim" }
 })
 
 require("lsp")

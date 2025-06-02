@@ -8,6 +8,7 @@ vim.opt.expandtab = true
 vim.opt.hlsearch = true
 vim.opt.ruler = true
 vim.opt.encoding = "utf-8"
+vim.opt.termguicolors = true
 
 -- init lazy.nvim
 vim.opt.rtp:prepend(vim.fn.stdpath("data") .. "/lazy/lazy.nvim")

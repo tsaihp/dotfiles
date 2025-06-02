@@ -43,15 +43,16 @@ require("nvim-tree").setup({
   },
 })
 
-vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
-vim.keymap.set('n', 'gr', vim.lsp.buf.references, {})
-vim.keymap.set('n', '<leader>fs', require('telescope.builtin').lsp_document_symbols, {})
-vim.keymap.set('n', '<leader>fw', require('telescope.builtin').lsp_workspace_symbols, {})
-vim.keymap.set("n", "<leader>ff", require("telescope.builtin").find_files, {})
+vim.keymap.set('n', '<C-\\><C-D>', vim.lsp.buf.definition, {})
+vim.keymap.set('n', '<C-\\><C-C>', vim.lsp.buf.references, {})
+vim.keymap.set('n', '<C-\\><C-L>', require('telescope.builtin').lsp_document_symbols, {})
+vim.keymap.set('n', '<C-\\><C-W>', require('telescope.builtin').lsp_workspace_symbols, {})
+vim.keymap.set("n", "<C-\\><C-F>", require("telescope.builtin").find_files, {})
 vim.keymap.set("n", "<leader>/", require("telescope.builtin").live_grep, {})
-vim.keymap.set("n", "<leader>fb", require("telescope.builtin").buffers, {})
+vim.keymap.set("n", "<C-\\>s", require("telescope.builtin").grep_string, {})
+vim.keymap.set("n", "<C-\\><C-B>", require("telescope.builtin").buffers, {})
 vim.keymap.set("n", "<leader>fh", require("telescope.builtin").help_tags, {})
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "<F5>", ":NvimTreeToggle<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "<leader>o", ":NvimTreeFindFileToggle<CR>", { silent = true, noremap = true })
 
 print("Hello, Ethan!")
